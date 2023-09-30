@@ -1,13 +1,25 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  Generated,
+  OneToMany,
+  PrimaryColumn,
+  UpdateDateColumn,
+} from "typeorm";
+import { AppDataSource } from "../../database/connect";
 
-@Entity()
+@Entity("users")
 export class User {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+  @PrimaryColumn({ type: "uuid" })
+  @Generated("uuid")
+  id: string;
+  @Column({ unique: true })
+  username: string;
   @Column()
-  firstName: string;
-
-  @Column()
-  lastName: string;
+  password: string;
+  @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
+  createdAt: Date;
+  @UpdateDateColumn()
+  updatedAt: Date;
 }
