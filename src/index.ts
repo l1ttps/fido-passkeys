@@ -3,8 +3,8 @@ import staticPlugin from "@elysiajs/static";
 import { Elysia } from "elysia";
 import rootController from "./serve/index.controller";
 import { CreateElysiaServer } from "./types";
-import userController from "./users/user.controller";
 import swagger from "@elysiajs/swagger";
+import userController from "./api/users/user.controller";
 
 /**
  * Creates an Elysia server with the provided controllers and middlewares.
@@ -35,7 +35,9 @@ function createElysiaServer({ controllers, middlewares }: CreateElysiaServer) {
       );
     });
   }
+
   app.listen(3000);
+
   return app;
 }
 
