@@ -1,5 +1,6 @@
-
-export interface CreateElysiaServer{
-    controllers: any[]
-    prefix?: string
+export interface CreateElysiaServer {
+  controllers: any[];
+  middlewares?: any[];
+  prefix?: string;
+  port?: number;
 }
