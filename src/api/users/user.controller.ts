@@ -17,7 +17,7 @@ export default function userController() {
   })
     .get("", () => userService.getUsers(), apiTag)
     .post("createAccount", () => userService.createUser(), apiTag)
-    .post(
+    .get(
       "signinRequest",
       ({ request }) => userService.signinRequest({ request }),
       apiTag

@@ -62,6 +62,12 @@ function bootstrap() {
       html(),
       swagger({
         path: "docs",
+        documentation: {
+          info: {
+            title: "FIDO Pass key",
+            version: "1.0",
+          },
+        },
       }),
     ], // custom middlewares
     port: process.env.PORT,
