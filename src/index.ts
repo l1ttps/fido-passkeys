@@ -4,20 +4,10 @@ import { Elysia } from "elysia";
 import rootController from "./serve/index.controller";
 import { CreateElysiaServer } from "./types";
 import userController from "./users/user.controller";
+import swagger from "@elysiajs/swagger";
 
-function createElysiaServer({
-  controllers,
-  middlewares,
-  prefix,
-}: CreateElysiaServer) {
+function createElysiaServer({ controllers, middlewares }: CreateElysiaServer) {
   const app = new Elysia();
-
-  app.use(
-    staticPlugin({
-      prefix: "/",
-    })
-  );
-  app.use(html());
 
   if (middlewares && middlewares.length > 0) {
     for (const middleware of middlewares) {
@@ -44,7 +34,15 @@ function createElysiaServer({
 function bootstrap() {
   const app = createElysiaServer({
     controllers: [rootController, userController],
-    middlewares: [], // custom middlewares
+    middlewares: [
+      staticPlugin({
+        prefix: "/",
+      }),
+      html(),
+      swagger({
+        path: "docs",
+      }),
+    ], // custom middlewares
   });
   console.log(`Server running on ${app.server?.port}`);
 }
