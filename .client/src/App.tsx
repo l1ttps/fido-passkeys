@@ -1,4 +1,13 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Login from "./page/login";
 function App() {
-  return <h1 className="text-3xl font-bold ">Fido pass key</h1>;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<h1>Fido pass key</h1>} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 export default App;
