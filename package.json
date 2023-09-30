@@ -4,14 +4,17 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "cd .client && bunx --bun vite build",
-    "dev": "bun run --watch src/index.ts",
+    "dev": "bun run --hot src/index.ts",
     "dev:client": " cd .client && bunx --bun vite dev"
   },
   "dependencies": {
     "@elysiajs/html": "^0.7.0",
     "@elysiajs/static": "^0.7.1",
     "@elysiajs/swagger": "^0.7.3",
+    "@simplewebauthn/server": "^8.2.0",
     "elysia": "latest",
+    "flowbite": "^1.8.1",
+    "flowbite-react": "^0.6.3",
     "pg": "^8.11.3",
     "react": "^18.2.0",
     "typeorm": "^0.3.17"

@@ -16,5 +16,10 @@ export default function userController() {
     prefix: "users",
   })
     .get("", () => userService.getUsers(), apiTag)
-    .post("createAccount", () => userService.createUser(), apiTag);
+    .post("createAccount", () => userService.createUser(), apiTag)
+    .post(
+      "signinRequest",
+      ({ request }) => userService.signinRequest({ request }),
+      apiTag
+    );
 }
