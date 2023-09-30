@@ -5,6 +5,7 @@ import rootController from "./serve/index.controller";
 import { CreateElysiaServer } from "./types";
 import swagger from "@elysiajs/swagger";
 import userController from "./api/users/user.controller";
+import connectDatabase from "./database/connect";
 
 /**
  * Creates an Elysia server with the provided controllers and middlewares.
@@ -51,6 +52,7 @@ function createElysiaServer({
  * @return {void}
  */
 function bootstrap() {
+  connectDatabase();
   const app = createElysiaServer({
     controllers: [rootController, userController],
     middlewares: [

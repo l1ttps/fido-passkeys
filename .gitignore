@@ -1,5 +1,5 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
+.env
 # dependencies
 /node_modules
 /.pnp
@@ -40,3 +40,4 @@ yarn-error.log*
 **/*.log
 package-lock.json
 **/*.bun
+.env
