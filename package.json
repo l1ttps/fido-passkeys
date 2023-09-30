@@ -8,9 +8,11 @@
   "dependencies": {
     "@elysiajs/html": "^0.7.0",
     "@elysiajs/static": "^0.7.1",
-    "elysia": "latest"
+    "elysia": "latest",
+    "react": "^18.2.0"
   },
   "devDependencies": {
+    "@types/react": "^18.2.23",
     "bun-types": "latest"
   },
   "module": "src/index.js"
