@@ -1,4 +1,5 @@
 import { AppDataSource } from "../../database/connect";
+import { SigninDto } from "./dto/signin.dto";
 import { User } from "./user.entity";
 import { generateAuthenticationOptions } from "@simplewebauthn/server";
 export default class UserService {
@@ -8,18 +9,49 @@ export default class UserService {
    *
    * @return {Array} An array of user objects.
    */
-  getUsers(): Promise<User[]> {
+  public getUsers(): Promise<User[]> {
     return this.userRepository.find();
   }
 
   /**
-   * Creates a new user.
+   * Handle login, if account not existing, create new account
    *
    * @return {Promise<User>} The newly created user.
    */
-  createUser(): Promise<User> {
+  public async signIn({
+    username,
+    password,
+  }: SigninDto): Promise<User | Response | null> {
+    if (await this.checkUserExist(username)) {
+      return this.userRepository.findOne({
+        where: {
+          username,
+        },
+      });
+    }
+    return this.createNewUser({ username, password });
+  }
+
+  private async createNewUser({
+    username,
+    password,
+  }: SigninDto): Promise<User> {
     const newUser = new User();
+    newUser.username = username;
+    const passwordHashed = await Bun.password.hash(password);
+    newUser.password = passwordHashed;
     return this.userRepository.save(newUser);
+  }
+
+  /**
+   * Checks if a user exists.
+   *
+   * @param {string} username - The username to check.
+   * @return {Promise<boolean>} Returns a promise that resolves to true if the user exists, and false otherwise.
+   */
+  private async checkUserExist(username: string): Promise<boolean> {
+    const check = await this.userRepository.count({ where: { username } });
+    return check > 0;
   }
 
   /**
@@ -29,7 +61,7 @@ export default class UserService {
    * @param {Request} request.request - The request object.
    * @return {Object} The generated authentication options.
    */
-  signinRequest({ request }: { request: Request }) {
+  public signinRequest({ request }: { request: Request }) {
     return generateAuthenticationOptions({
       userVerification: "preferred",
       rpID: "localhost",
