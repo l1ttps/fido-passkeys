@@ -6,6 +6,14 @@ import { CreateElysiaServer } from "./types";
 import userController from "./users/user.controller";
 import swagger from "@elysiajs/swagger";
 
+/**
+ * Creates an Elysia server with the provided controllers and middlewares.
+ *
+ * @param {CreateElysiaServer} options - The options for creating the Elysia server.
+ * @param {Array} options.controllers - The array of controllers to be used by the server.
+ * @param {Array} options.middlewares - The array of middlewares to be used by the server.
+ * @return {Elysia} - The created Elysia server instance.
+ */
 function createElysiaServer({ controllers, middlewares }: CreateElysiaServer) {
   const app = new Elysia();
 
@@ -31,6 +39,11 @@ function createElysiaServer({ controllers, middlewares }: CreateElysiaServer) {
   return app;
 }
 
+/**
+ * Initializes and starts the application server.
+ *
+ * @return {void}
+ */
 function bootstrap() {
   const app = createElysiaServer({
     controllers: [rootController, userController],
