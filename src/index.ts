@@ -14,7 +14,11 @@ import userController from "./api/users/user.controller";
  * @param {Array} options.middlewares - The array of middlewares to be used by the server.
  * @return {Elysia} - The created Elysia server instance.
  */
-function createElysiaServer({ controllers, middlewares }: CreateElysiaServer) {
+function createElysiaServer({
+  controllers,
+  middlewares,
+  port,
+}: CreateElysiaServer) {
   const app = new Elysia();
 
   if (middlewares && middlewares.length > 0) {
@@ -36,7 +40,7 @@ function createElysiaServer({ controllers, middlewares }: CreateElysiaServer) {
     });
   }
 
-  app.listen(3000);
+  app.listen(port ?? 3000);
 
   return app;
 }
@@ -58,6 +62,7 @@ function bootstrap() {
         path: "docs",
       }),
     ], // custom middlewares
+    port: process.env.PORT,
   });
   console.log(`Server running on ${app.server?.port}`);
 }

@@ -11,7 +11,6 @@
     "@elysiajs/html": "^0.7.0",
     "@elysiajs/static": "^0.7.1",
     "@elysiajs/swagger": "^0.7.3",
-    "@ptkdev/logger": "^1.8.0",
     "elysia": "latest",
     "react": "^18.2.0"
   },
