@@ -25,12 +25,16 @@ export default function passKeysController() {
             },
           }
         )
-        .post("verification", (body) => passKeysService.registerFinish(body), {
-          detail: {
-            summary: "Verify registration",
-            tags: ["Passkeys"],
-          },
-        });
+        .post(
+          "verification",
+          ({ body }) => passKeysService.registerFinish(body),
+          {
+            detail: {
+              summary: "Verify registration",
+              tags: ["Passkeys"],
+            },
+          }
+        );
     })
     .group("/one-click", (app) => {
       return app

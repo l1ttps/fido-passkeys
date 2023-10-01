@@ -1,5 +1,6 @@
 import { DataSource } from "typeorm";
 import { User } from "../api/users/user.entity";
+import { Passkeys } from "../api/passkeys/passkeys.entity";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -10,7 +11,7 @@ export const AppDataSource = new DataSource({
   database: process.env.DB_NAME,
   synchronize: true,
   logging: false,
-  entities: [User],
+  entities: [User, Passkeys],
   subscribers: [],
   migrations: [],
   ssl: true,

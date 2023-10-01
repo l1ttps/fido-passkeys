@@ -10,7 +10,8 @@ export interface RegisterStartResponseDto {
   rpId: string;
   user: {
     id: string;
-    username: string;
+    name: string;
+    displayName: string;
   };
   pubKeyCredParams: PubKeyCredParam[];
 }

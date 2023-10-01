@@ -6,24 +6,24 @@ import {
   OneToMany,
   PrimaryColumn,
   UpdateDateColumn,
-  Relation,
+  ManyToOne,
 } from "typeorm";
 import { AppDataSource } from "../../database/connect";
-import { Passkeys } from "../passkeys/passkeys.entity";
+import { User } from "../users/user.entity";
 
-@Entity("users")
-export class User {
+@Entity("passkeys")
+export class Passkeys {
   @PrimaryColumn({ type: "uuid" })
   @Generated("uuid")
   id: string;
-  @Column({ unique: true })
-  username: string;
+  @ManyToOne(() => User, (user) => user.passkeys)
+  user: string;
   @Column()
-  password: string;
+  publicKey: string;
+  @Column()
+  credentialID: string;
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
   createdAt: Date;
   @UpdateDateColumn()
   updatedAt: Date;
-  @OneToMany(() => Passkeys, (passkeys) => passkeys.user)
-  passkeys: Passkeys[];
 }

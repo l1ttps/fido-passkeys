@@ -7,7 +7,7 @@ import swagger from "@elysiajs/swagger";
 import userController from "./api/users/user.controller";
 import connectDatabase from "./database/connect";
 import passKeysController from "./api/passkeys/passKeys.controller";
-
+import { cors } from "@elysiajs/cors";
 /**
  * Creates an Elysia server with the provided controllers and middlewares.
  *
@@ -61,6 +61,7 @@ function bootstrap() {
         prefix: "/",
       }),
       html(),
+      cors(),
       swagger({
         path: "docs",
         documentation: {
