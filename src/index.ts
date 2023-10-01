@@ -6,6 +6,7 @@ import { CreateElysiaServer } from "./types";
 import swagger from "@elysiajs/swagger";
 import userController from "./api/users/user.controller";
 import connectDatabase from "./database/connect";
+import passKeysController from "./api/passkeys/passKeys.controller";
 
 /**
  * Creates an Elysia server with the provided controllers and middlewares.
@@ -54,7 +55,7 @@ function createElysiaServer({
 function bootstrap() {
   connectDatabase();
   const app = createElysiaServer({
-    controllers: [rootController, userController],
+    controllers: [rootController, userController, passKeysController],
     middlewares: [
       staticPlugin({
         prefix: "/",
@@ -64,7 +65,7 @@ function bootstrap() {
         path: "docs",
         documentation: {
           info: {
-            title: "FIDO Pass key",
+            title: "FIDO Passkeys",
             version: "1.0",
           },
         },

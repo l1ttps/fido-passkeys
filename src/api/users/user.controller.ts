@@ -14,10 +14,10 @@ const apiTag = {
  */
 export default function userController() {
   return new Elysia({
-    prefix: "users",
+    prefix: "auth",
   })
     .get("", () => userService.getUsers(), apiTag)
-    .post("signIn", ({ body }) => userService.signIn(body as SigninDto), {
+    .post("sign", ({ body }) => userService.signIn(body as SigninDto), {
       ...apiTag,
       body: t.Object({
         username: t.String(),
@@ -26,10 +26,5 @@ export default function userController() {
           maxLength: 32,
         }),
       }),
-    })
-    .get(
-      "signinRequest",
-      ({ request }) => userService.signinRequest({ request }),
-      apiTag
-    );
+    });
 }
