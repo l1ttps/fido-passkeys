@@ -32,6 +32,12 @@ export default class UserService {
     return this.createNewUser({ username, password });
   }
 
+  /**
+   * Creates a new user.
+   *
+   * @param {SigninDto} signinDto - The signin data transfer object containing the username and password.
+   * @return {Promise<User>} The newly created user.
+   */
   private async createNewUser({
     username,
     password,
@@ -55,17 +61,20 @@ export default class UserService {
   }
 
   /**
-   * Generate the authentication options for a sign-in request.
+   * Find a user by their ID.
    *
-   * @param {Object} request - The sign-in request object.
-   * @param {Request} request.request - The request object.
-   * @return {Object} The generated authentication options.
+   * @param {string} id - The ID of the user.
+   * @return {Promise<User>} A promise that resolves to the user with the given ID.
    */
-  public signinRequest({ request }: { request: Request }) {
-    return generateAuthenticationOptions({
-      userVerification: "preferred",
-      rpID: "localhost",
-      allowCredentials: [],
-    });
+  public async findUserById(id: string): Promise<User | null> {
+    try {
+      const user = await this.userRepository.findOne({
+        where: { id },
+      });
+
+      return user;
+    } catch (e: Error | any) {
+      throw new Error(e.message);
+    }
   }
 }
